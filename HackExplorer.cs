@@ -92,9 +92,18 @@ public class HackInspector : MonoBehaviour
                     {
                         for (int k = 0; k < properties.Length; k++)
                         {
-                            var value = properties[k].GetValue(monoBehaviours[i], new object[] { }); //dnSpy doesn't allow for just one parameter GetValue
-
-                            GUILayout.Label(properties[k] + ": " + value.ToString());
+                            var value = properties[k].GetValue(monoBehaviours[i], new object[] { });
+                            if(value.GetType() == typeof(Transform))
+							{
+                                var pos = transform.position;
+                                var rot = transform.rotation;
+                                GUILayout.Label(properties[k] + "(position): " + pos.ToString());
+                                GUILayout.Label(properties[k] + "(rotation): " + rot.ToString());
+                            }
+                            else
+							{
+                                GUILayout.Label(properties[k] + ": " + value.ToString());
+                            }
                         }
                     }
                     catch (Exception e2)
