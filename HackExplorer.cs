@@ -3,9 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-//This class should show most of elements in the level and allow you to navigate the tree as you want
-
 public class HackInspector : MonoBehaviour
 {
     bool drawHackInspector = false;
@@ -84,16 +81,19 @@ public class HackInspector : MonoBehaviour
                     GUILayout.Label(monoBehaviours[i].GetType().Name);
                     GUILayout.Label("Fields (" + monoBehaviours[i].GetType().Name + "):");
                     var properties = monoBehaviours[i].GetType().GetProperties();
-                    foreach (var property in properties)
+
+                    try
                     {
-                        try
+                        for (int k = 0; k < properties.Length; k++)
                         {
-                            GUILayout.Label(property + ": " + property.GetValue(monoBehaviours[i]).ToString());
+                            var value = properties[k].GetValue(monoBehaviours[i], new object[] { }); //dnSpy doesn't allow for just one parameter GetValue
+
+                            GUILayout.Label(properties[k] + ": " + value.ToString());
                         }
-                        catch (Exception e2)
-                        {
-                            GUILayout.Label("Error");
-                        }
+                    }
+                    catch (Exception e2)
+                    {
+                        GUILayout.Label("Error" + e2);
                     }
 
                     GUILayout.Label("---------");
