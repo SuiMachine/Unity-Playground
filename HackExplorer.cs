@@ -43,6 +43,11 @@ public class HackInspector : MonoBehaviour
                 {
                     element = this.gameObject.scene.GetRootGameObjects()[0].transform;
                 }
+				if (GUILayout.Button("Move camera"))
+				{
+					Camera.current.transform.position = this.element.transform.position;
+					Camera.current.transform.rotation = this.element.transform.rotation;
+				}
 
                 if (GUILayout.Button("Up"))
                 {
