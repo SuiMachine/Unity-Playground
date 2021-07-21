@@ -62,7 +62,8 @@ public class HackInspector : MonoBehaviour
                         }
                     }
                 }
-
+				
+				GUILayout.Label("Current object:" + element.name);
                 GUILayout.Label("CHILDREN:");
                 for (int i = 0; i < element.childCount; i++)
                 {
